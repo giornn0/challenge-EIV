@@ -1,0 +1,14 @@
+<img
+  (click)="imgSelector.click()"
+  appDefaultImage
+  [src]="imgSrc"
+  [defaultImage]="defaultImg"
+/>
+<input
+  #imgSelector
+  hidden
+  type="file"
+  [accept]="accept.join(',')"
+  [formControl]="control!"
+  (change)="setImg($event)"
+/>
