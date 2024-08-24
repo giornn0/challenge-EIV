@@ -1,0 +1,82 @@
+// Sizing scale
+$sizes: (
+  "0": 0,
+  "25": 25%,
+  "50": 50%,
+  "75": 75%,
+  "100": 100%,
+  "auto": auto,
+  "full": 100%,
+  "screen": 100vw,
+);
+
+// Width utilities
+@each $key, $value in $sizes {
+  .w-#{$key} {
+    width: $value;
+  }
+}
+
+// Max-width utilities
+@each $key, $value in $sizes {
+  .max-w-#{$key} {
+    max-width: $value;
+  }
+}
+
+// Min-width utilities
+@each $key, $value in $sizes {
+  .min-w-#{$key} {
+    min-width: $value;
+  }
+}
+
+// Height utilities
+@each $key, $value in $sizes {
+  .h-#{$key} {
+    height: $value;
+  }
+}
+
+// Max-height utilities
+@each $key, $value in $sizes {
+  .max-h-#{$key} {
+    max-height: $value;
+  }
+}
+
+// Min-height utilities
+@each $key, $value in $sizes {
+  .min-h-#{$key} {
+    min-height: $value;
+  }
+}
+
+// Additional useful sizes
+.w-screen {
+  width: 100vw;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+// Fixed sizes
+$fixed-sizes: (
+  "1": 0.25rem,
+  "2": 0.5rem,
+  "4": 1rem,
+  "8": 2rem,
+  "16": 4rem,
+  "32": 8rem,
+  "64": 16rem,
+);
+
+@each $key, $value in $fixed-sizes {
+  .w-#{$key} {
+    width: $value;
+  }
+  .h-#{$key} {
+    height: $value;
+  }
+}

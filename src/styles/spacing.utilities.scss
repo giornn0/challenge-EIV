@@ -1,0 +1,100 @@
+// Spacing scale
+$spacers: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 1rem,
+  4: 1.5rem,
+  5: 3rem,
+);
+
+// Gap utilities for flexbox and grid
+@each $key, $value in $spacers {
+  .gap-#{$key} {
+    gap: $value;
+  }
+
+  .gap-x-#{$key} {
+    column-gap: $value;
+  }
+
+  .gap-y-#{$key} {
+    row-gap: $value;
+  }
+}
+
+// Margin utilities
+@each $key, $value in $spacers {
+  .m-#{$key} {
+    margin: $value;
+  }
+
+  .mx-#{$key} {
+    margin-left: $value;
+    margin-right: $value;
+  }
+
+  .my-#{$key} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+
+  .mt-#{$key} {
+    margin-top: $value;
+  }
+
+  .mr-#{$key} {
+    margin-right: $value;
+  }
+
+  .mb-#{$key} {
+    margin-bottom: $value;
+  }
+
+  .ml-#{$key} {
+    margin-left: $value;
+  }
+}
+
+// Negative margin utilities
+@each $key, $value in $spacers {
+  .-m-#{$key} {
+    margin: -$value;
+  }
+
+  .-mx-#{$key} {
+    margin-left: -$value;
+    margin-right: -$value;
+  }
+
+  .-my-#{$key} {
+    margin-top: -$value;
+    margin-bottom: -$value;
+  }
+}
+
+// Auto margins
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}
+
+// Space-between utility for flexbox
+.space-x-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.space-y-between {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

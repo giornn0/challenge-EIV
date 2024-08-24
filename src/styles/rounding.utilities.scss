@@ -1,0 +1,49 @@
+// Border radius values
+$radius-sizes: (
+  "none": 0,
+  "sm": 0.125rem,
+  "md": 0.25rem,
+  "lg": 0.5rem,
+  "xl": 1rem,
+  "full": 9999px,
+);
+
+// Generate utility classes for all sides
+@each $size, $value in $radius-sizes {
+  .rounded-#{$size} {
+    border-radius: $value;
+  }
+}
+
+// Generate utility classes for individual corners
+$corners: (
+  "tl": "top-left",
+  "tr": "top-right",
+  "bl": "bottom-left",
+  "br": "bottom-right",
+);
+
+@each $corner, $property in $corners {
+  @each $size, $value in $radius-sizes {
+    .rounded-#{$corner}-#{$size} {
+      border-#{$property}-radius: $value;
+    }
+  }
+}
+
+// Generate utility classes for top, bottom, left, and right
+$sides: (
+  "t": "top",
+  "b": "bottom",
+  "l": "left",
+  "r": "right",
+);
+
+@each $side, $property in $sides {
+  @each $size, $value in $radius-sizes {
+    .rounded-#{$side}-#{$size} {
+      border-#{$property}-left-radius: $value;
+      border-#{$property}-right-radius: $value;
+    }
+  }
+}

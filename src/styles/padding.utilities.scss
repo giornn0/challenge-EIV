@@ -1,0 +1,61 @@
+// Padding values
+$padding-sizes: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 1rem,
+  4: 1.5rem,
+  5: 2rem,
+  6: 3rem,
+);
+
+// All sides padding
+@each $key, $value in $padding-sizes {
+  .p-#{$key} {
+    padding: $value;
+  }
+}
+
+// Vertical padding (top and bottom)
+@each $key, $value in $padding-sizes {
+  .py-#{$key} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+}
+
+// Horizontal padding (left and right)
+@each $key, $value in $padding-sizes {
+  .px-#{$key} {
+    padding-left: $value;
+    padding-right: $value;
+  }
+}
+
+// Top padding
+@each $key, $value in $padding-sizes {
+  .pt-#{$key} {
+    padding-top: $value;
+  }
+}
+
+// Bottom padding
+@each $key, $value in $padding-sizes {
+  .pb-#{$key} {
+    padding-bottom: $value;
+  }
+}
+
+// Left padding
+@each $key, $value in $padding-sizes {
+  .pl-#{$key} {
+    padding-left: $value;
+  }
+}
+
+// Right padding
+@each $key, $value in $padding-sizes {
+  .pr-#{$key} {
+    padding-right: $value;
+  }
+}
