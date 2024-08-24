@@ -1,0 +1,60 @@
+<app-container>
+  <form [formGroup]="sellerForm" (ngSubmit)="submit()">
+    <fieldset>
+      <legend>Datos personales</legend>
+      <div>
+        <app-img-picker
+          [control]="photoControl"
+          [imgSrc]="'photo-de-ediction'"
+          [defaultImg]="'icons/circle-user-round.svg'"
+        ></app-img-picker>
+      </div>
+      <div>
+        <label>Nombre</label>
+        <input type="text" formControlName="nombre" />
+      </div>
+      <div>
+        <label>Fecha de nacimiento</label>
+        <input type="date" formControlName="fechaNacimiento" />
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Información de usuario</legend>
+      <div>
+        <label>Usuario login</label>
+        <input type="text" formControlName="usuarioLogin" />
+      </div>
+      <div>
+        <label>¿Habilitado?</label>
+        <input type="checkbox" formControlName="habilitado" />
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Dirección</legend>
+      <div>
+        <label>Localidad</label>
+        <select formControlName="localidadId">
+          @for (localidad of $localidades | async; track localidad) {
+            <option [value]="localidad.id">
+              {{ localidad.localidad }} - {{ localidad.codigoPostal }}
+            </option>
+          }
+        </select>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Opcionales</legend>
+      <div>
+        <label>Observaciones</label>
+        <textarea formControlName="observaciones"></textarea>
+      </div>
+    </fieldset>
+
+    <div class="w-full flex items-center justify-center">
+      <button class="btn btn-danger" type="button" (click)="back()">
+        Cancelar
+      </button>
+      <button class="btn btn-primary">Crear</button>
+    </div>
+  </form>
+</app-container>

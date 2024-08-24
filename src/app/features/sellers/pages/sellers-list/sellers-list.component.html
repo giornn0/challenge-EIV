@@ -1,0 +1,30 @@
+<app-container>
+  <table>
+    <thead>
+      <tr>
+        @for (head of headers; track head) {
+          <td>
+            {{ head }}
+          </td>
+        }
+          <td>
+          Acciones
+          </td>
+      </tr>
+    </thead>
+    <tbody>
+      @for (seller of sellersList | async; track seller) {
+        <tr>
+          @for (access of columnAccesors; track access) {
+            <td>
+              {{ seller[access] }}
+            </td>
+          }
+          <td>
+
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</app-container>
