@@ -31,6 +31,7 @@ $dark-danger: #ff6b6b;
     --warning: #{$light-warning};
     --primary: #{$light-primary};
     --secondary: #{$light-secondary};
+    --secondary-rgb: 108, 117, 125;
     --danger: #{$light-danger};
     --text-invert: 0%;
     --text-brightness: 0%;
@@ -43,6 +44,7 @@ $dark-danger: #ff6b6b;
     --warning: #{$dark-warning};
     --primary: #{$dark-primary};
     --secondary: #{$dark-secondary};
+    --secondary-rgb: 134, 142, 150;
     --danger: #{$dark-danger};
     --text-invert: 100%;
     --text-brightness: 100%;
@@ -56,6 +58,12 @@ $dark-danger: #ff6b6b;
   --text-invert: 0%;
   --text-brightness: 0%;
   --text-contrast: 100%;
+  --error-invert: 56%;
+  --error-sepia: 93%;
+  --error-saturate: 1373%;
+  --error-hue-rotate: 323deg;
+  --error-brightness: 105%;
+  --error-contrast: 103%;
 }
 
 .dark-theme {
@@ -63,6 +71,12 @@ $dark-danger: #ff6b6b;
   --text-invert: 100%;
   --text-brightness: 100%;
   --text-contrast: 100%;
+  --error-invert: 29%;
+  --error-sepia: 94%;
+  --error-saturate: 2237%;
+  --error-hue-rotate: 338deg;
+  --error-brightness: 90%;
+  --error-contrast: 95%;
 }
 // Utility classes
 .bg-primary {
@@ -83,6 +97,12 @@ $dark-danger: #ff6b6b;
 .bg-danger {
   background-color: var(--danger);
 }
+.bg-white {
+  background-color: var(--text);
+}
+.bg-light {
+  background-color: var(--background);
+}
 
 .text-primary {
   color: var(--primary);
@@ -101,6 +121,12 @@ $dark-danger: #ff6b6b;
 }
 .text-danger {
   color: var(--danger);
+}
+.text-white {
+  color: var(--text);
+}
+.text-light {
+  color: var(--background);
 }
 
 @mixin svg-color($color) {
@@ -149,8 +175,16 @@ $dark-danger: #ff6b6b;
       contrast(104%)
   );
 }
+.svg-danger {
+  filter: brightness(0) saturate(100%) invert(29%) sepia(94%) saturate(2237%)
+    hue-rotate(338deg) brightness(90%) contrast(95%);
+}
 .svg-text {
   filter: brightness(0) saturate(100%) invert(var(--text-invert)) sepia(0%)
     saturate(0%) hue-rotate(316deg) brightness(var(--text-brightness))
     contrast(var(--text-contrast));
+}
+
+.border-secondary {
+  border: solid 2px var(--secondary);
 }

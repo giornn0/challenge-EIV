@@ -5,11 +5,16 @@
 @import "./styles/rounding.utilities.scss";
 @import "./styles/spacing.utilities.scss";
 @import "./styles/text.utilities.scss";
+@import "./styles/cursor.utilities.scss";
+@import "./styles/transform.utilities.scss";
 @import "./styles/butons.scss";
+@import "./styles/tables.scss";
+@import "./styles/forms.scss";
 
 body {
   background-color: var(--background);
   color: var(--text);
+  overflow: hidden;
 }
 
 a {

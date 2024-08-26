@@ -1,6 +1,6 @@
 // Flexbox container
 .flex {
-  display: flex;
+  display: flex !important;
 }
 
 .inline-flex {
@@ -60,6 +60,30 @@
 
 .justify-evenly {
   justify-content: space-evenly;
+}
+// Justify content
+.justify-self-start {
+  justify-self: flex-start;
+}
+
+.justify-self-end {
+  justify-self: flex-end;
+}
+
+.justify-self-center {
+  justify-self: center;
+}
+
+.justify-self-between {
+  justify-self: space-between;
+}
+
+.justify-self-around {
+  justify-self: space-around;
+}
+
+.justify-self-evenly {
+  justify-self: space-evenly;
 }
 
 // Align items

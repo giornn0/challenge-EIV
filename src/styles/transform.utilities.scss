@@ -1,0 +1,18 @@
+$scales: (
+  "25": 25%,
+  "50": 50%,
+  "75": 75%,
+  "100": 100%,
+  "150": 150%,
+  "175": 175%,
+  "200": 200%,
+  "300": 300%,
+  "400": 400%,
+);
+
+// Width utilities
+@each $key, $value in $scales {
+  .scale-#{$key} {
+    transform: scale($value);
+  }
+}
