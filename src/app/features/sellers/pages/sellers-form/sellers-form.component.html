@@ -16,10 +16,12 @@
       <div class="form-group">
         <label class="form-label">Nombre</label>
         <input class="form-control" type="text" formControlName="nombre" />
+        <app-form-error-message [control]="sellerForm.get('nombre')!"></app-form-error-message>
       </div>
       <div class="form-group">
         <label class="form-label">Fecha de nacimiento</label>
         <input class="form-control" type="date" lang="es-ES" formControlName="fechaNacimiento" />
+        <app-form-error-message [control]="sellerForm.get('fechaNacimiento')!"></app-form-error-message>
       </div>
     </fieldset>
     <fieldset>
@@ -27,10 +29,12 @@
       <div class="form-group">
         <label class="form-label">Usuario login</label>
         <input class="form-control" type="text" formControlName="usuarioLogin" />
+        <app-form-error-message [control]="sellerForm.get('usuarioLogin')!"></app-form-error-message>
       </div>
       <div class="form-check">
         <input class="form-check-input" id="habilitado" type="checkbox" formControlName="habilitado" />
         <label class="form-check-label" for="habilitado">¿Habilitado?</label>
+        <app-form-error-message [control]="sellerForm.get('habilitado')!"></app-form-error-message>
       </div>
     </fieldset>
     <fieldset>
@@ -44,6 +48,7 @@
           </option>
           }
         </select>
+        <app-form-error-message [control]="sellerForm.get('localidadId')!"></app-form-error-message>
       </div>
     </fieldset>
     <fieldset>
@@ -51,6 +56,7 @@
       <div class="form-group">
         <label class="form-label">Observaciones</label>
         <textarea class="form-control" formControlName="observaciones"></textarea>
+        <app-form-error-message [control]="sellerForm.get('observaciones')!"></app-form-error-message>
       </div>
     </fieldset>
 

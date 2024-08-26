@@ -27,6 +27,7 @@ import {
   Color,
   ContainerComponent,
   DateRangeValidator,
+  FormErrorMessageComponent,
   ImgPickerComponent,
   MessagesService,
   TypedForm,
@@ -43,6 +44,7 @@ const MAXIMUM_SELLER_AGE = -65;
     ContainerComponent,
     ReactiveFormsModule,
     ImgPickerComponent,
+    FormErrorMessageComponent,
     AsyncPipe,
   ],
   templateUrl: './sellers-form.component.html',
@@ -96,6 +98,7 @@ export class SellersFormComponent implements OnInit {
 
   submit() {
     if (!this.sellerForm.valid) {
+      Object.values(this.sellerForm.controls).forEach((c) => c.markAsTouched());
       return;
     }
     if (!this.id) {

@@ -17,7 +17,7 @@ export function DateRangeValidator(
     }
 
     if (!isDateInRange(inputDate, startDate, endDate)) {
-      return { DateOutOfRange: { value: control.value, startDate, endDate } };
+      return { dateOutOfRange: { value: control.value, startDate, endDate } };
     }
 
     return null;

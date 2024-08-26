@@ -1,0 +1,7 @@
+@if(control && control.invalid && (control.dirty || control.touched)){
+<div class="error-message">
+  @for(error of getErrors(); track error){
+  <span>{{ error }}</span>
+  }
+</div>
+}
