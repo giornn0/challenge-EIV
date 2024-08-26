@@ -1,6 +1,6 @@
 main {
-  min-height: 84vh;
-  height: 84vh;
-  max-height: 84vh;
+  min-height: calc(86vh - 90px);
+  height: 86vh;
+  max-height: calc(100vh - 14vh) !important;
   overflow-y: auto;
 }
