@@ -2,14 +2,56 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SellersFormComponent } from './sellers-form.component';
 import { By } from '@angular/platform-browser';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { addYears } from '@shared';
+import { Location, LocationsApiService } from '@app-features/locations';
+import { of } from 'rxjs';
+import { formatDate } from '@angular/common';
 
 describe('SellersFormComponent', () => {
   let component: SellersFormComponent;
   let fixture: ComponentFixture<SellersFormComponent>;
-
+  let mockedLocationService!: { getAll: jest.Mock };
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
+    const mockListLocations = jest.fn();
+    mockListLocations.mockReturnValue(
+      of([
+        {
+          id: 1,
+          codigoPostal: '123',
+          localidad: 'Mock Localidad',
+        },
+        {
+          id: 3,
+          codigoPostal: '152',
+          localidad: 'Mock Localidad 2',
+        },
+        {
+          id: 2,
+          codigoPostal: '2313',
+          localidad: 'Mock Localidad 3',
+        },
+        {
+          id: 4,
+          codigoPostal: '321',
+          localidad: 'Mock Localidad 4',
+        },
+      ] as Location[]),
+    );
+    mockedLocationService = {
+      getAll: mockListLocations,
+    };
+    TestBed.configureTestingModule({
       imports: [SellersFormComponent],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        {
+          provide: LocationsApiService,
+          useValue: mockedLocationService,
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SellersFormComponent);
@@ -35,34 +77,40 @@ describe('SellersFormComponent', () => {
       By.css('input[formControlName="nombre"]'),
     ).nativeElement;
 
-    nombreInput.value = 'testuser';
+    nombreInput.value = 'Mock Vendedor';
     nombreInput.dispatchEvent(new Event('input'));
     const usuarioLoginInput = fixture.debugElement.query(
       By.css('input[formControlName="usuarioLogin"]'),
     ).nativeElement;
 
-    usuarioLoginInput.value = 'testuser';
+    usuarioLoginInput.value = 'usuario@prueba.com';
     usuarioLoginInput.dispatchEvent(new Event('input'));
     const fechaNacimientoInput = fixture.debugElement.query(
       By.css('input[formControlName="fechaNacimiento"]'),
     ).nativeElement;
 
-    fechaNacimientoInput.value = 'testuser';
+    const today = new Date();
+
+    fechaNacimientoInput.value = formatDate(
+      addYears(today, -20),
+      'yyyy-MM-dd',
+      'en',
+    );
     fechaNacimientoInput.dispatchEvent(new Event('input'));
     const localidadIdInput = fixture.debugElement.query(
-      By.css('input[formControlName="localidadId"]'),
-    ).nativeElement;
+      By.css('select[formControlName="localidadId"]'),
+    ).nativeElement as HTMLSelectElement;
 
-    localidadIdInput.value = 'testuser';
-    localidadIdInput.dispatchEvent(new Event('input'));
+    localidadIdInput.selectedIndex = 2;
+    localidadIdInput.dispatchEvent(new Event('change'));
     const habilitadoInput = fixture.debugElement.query(
       By.css('input[formControlName="habilitado"]'),
     ).nativeElement;
 
-    habilitadoInput.value = 'testuser';
+    habilitadoInput.value = true;
     habilitadoInput.dispatchEvent(new Event('input'));
     const observacionesInput = fixture.debugElement.query(
-      By.css('input[formControlName="observaciones"]'),
+      By.css('textarea[formControlName="observaciones"]'),
     ).nativeElement;
 
     observacionesInput.value = 'testuser';
@@ -70,6 +118,7 @@ describe('SellersFormComponent', () => {
 
     fixture.detectChanges();
 
+    console.log(component.sellerForm.value, component.sellerForm.errors);
     expect(component.sellerForm.valid).toBeTruthy();
   });
 });
