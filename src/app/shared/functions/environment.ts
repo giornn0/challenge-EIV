@@ -1,7 +1,7 @@
-import { Environments } from '@shared';
+import { ValidEnvironments } from '@shared';
 
-export const getEnvironment = () => {
-  return Environments.Dev;
+export const workingEnvironment = () => {
+  return ValidEnvironments.Dev;
 };
 
 export const appBaseUrl = location.origin + '/';

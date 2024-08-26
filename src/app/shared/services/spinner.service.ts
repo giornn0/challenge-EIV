@@ -15,5 +15,4 @@ export class SpinnerService {
   get $spinner() {
     return this.#spinning.asObservable().pipe(map((s) => s > 0));
   }
-  constructor() {}
 }

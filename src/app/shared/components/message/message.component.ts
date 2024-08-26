@@ -1,12 +1,18 @@
-import { Component } from '@angular/core';
+import { AsyncPipe, NgClass } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { Color } from 'app/shared/models';
+import { MessagesService } from 'app/shared/services';
 
 @Component({
   selector: 'app-message',
   standalone: true,
-  imports: [],
+  imports: [AsyncPipe, NgClass],
   templateUrl: './message.component.html',
-  styleUrl: './message.component.scss'
+  styleUrl: './message.component.scss',
 })
 export class MessageComponent {
+  messagesService = inject(MessagesService);
+  $messages = this.messagesService.messages;
 
+  color = Color;
 }

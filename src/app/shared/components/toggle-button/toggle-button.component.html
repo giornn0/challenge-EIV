@@ -1,0 +1,7 @@
+@if (status) {
+<img src="icons/circle-check.svg" alt="status enable icon" class="svg-success pointer"
+  (click)="changeStatus.emit(!status)" />
+} @else {
+<img src="icons/circle-x.svg" alt="status disable icon" class="svg-danger pointer"
+  (click)="changeStatus.emit(!status)" />
+}

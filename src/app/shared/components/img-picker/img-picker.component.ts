@@ -25,6 +25,7 @@ export class ImgPickerComponent {
   @Output() change = new EventEmitter<File>();
 
   setImg(event: Event) {
+    event.stopPropagation();
     const file = handleFileEvent(event);
     if (file) {
       this.change.emit(file);

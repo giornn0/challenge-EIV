@@ -1,14 +1,16 @@
-<img
-  (click)="imgSelector.click()"
-  appDefaultImage
-  [src]="imgSrc"
-  [defaultImage]="defaultImg"
-/>
-<input
-  #imgSelector
-  hidden
-  type="file"
-  [accept]="accept.join(',')"
-  [formControl]="control!"
-  (change)="setImg($event)"
-/>
+<label class="avatar avatar-xl avatar-picker" for="imgPicker">
+  <img
+    (click)="imgSelector.click()"
+    appDefaultImage
+    [src]="imgSrc"
+    [defaultImage]="defaultImg"
+    class="pointer" />
+  <input
+    id="imgPicker"
+    #imgSelector
+    hidden
+    type="file"
+    [accept]="accept.join(',')"
+    [formControl]="control!"
+    (change)="setImg($event)"
+/></label>

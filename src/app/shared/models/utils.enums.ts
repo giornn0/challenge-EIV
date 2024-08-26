@@ -9,9 +9,10 @@ export enum Color {
 
 export enum ValidHttpHeader {
   ContentType = 'Content-Type',
+  Accept = 'Accept',
 }
 
-export enum Environments {
+export enum ValidEnvironments {
   Dev = 'dev',
   Testing = 'testing',
   Production = 'production',

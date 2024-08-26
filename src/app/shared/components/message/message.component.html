@@ -1,1 +1,25 @@
-<p>message works!</p>
+<div class="flex flex-col messages-container flex-reverse">
+  @for (message of $messages | async; track message) {
+  <div [ngClass]="['bg-' + message.color, 'px-4 rounded-lg mt-2']">
+
+    @if (message.title) {
+    <p>{{ message.title }}</p>
+    }
+    <p class="flex items-center">
+      @switch(message.color){
+      @case(color.Info){
+      <img src="icons/info.svg" alt="info icon" class="svg-text mr-2" />
+      }
+      @case(color.Danger){
+      <img src="icons/ban.svg" alt="ban icon" class="svg-text mr-2" />
+      }
+      @case(color.Success){
+      <img src="icons/circle-check-big.svg" alt="success icon" class="svg-text mr-2" />
+      } @case(color.Warning){
+      <img src="icons/triangle-alert.svg" alt="warning icon" class="svg-text mr-2" />
+      } }
+      {{ message.message }}
+    </p>
+  </div>
+  }
+</div>
