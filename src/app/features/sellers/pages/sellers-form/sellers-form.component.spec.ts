@@ -118,7 +118,6 @@ describe('SellersFormComponent', () => {
 
     fixture.detectChanges();
 
-    console.log(component.sellerForm.value, component.sellerForm.errors);
     expect(component.sellerForm.valid).toBeTruthy();
   });
 });
