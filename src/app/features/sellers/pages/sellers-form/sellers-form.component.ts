@@ -109,14 +109,21 @@ export class SellersFormComponent implements OnInit {
     }
   }
 
+  postSellerPhoto(seller: Seller) {
+    if (!this.photoFile) {
+      this.exit(true);
+      return;
+    }
+    this.service
+      .updatePhoto(seller.id, this.photoFile)
+      .subscribe(this.handlerSubmitPhoto);
+  }
   handlerSubmit: PartialObserver<Seller> = {
     next: (seller) => this.postSellerPhoto(seller),
   };
   handlerSubmitPhoto: PartialObserver<boolean> = {
     next: (successful) => {
-      if (successful) {
-        this.exit(true);
-      }
+      this.exit(successful);
     },
   };
   handlerGetPhoto: PartialObserver<File | null> = {
@@ -127,14 +134,6 @@ export class SellersFormComponent implements OnInit {
     },
   };
 
-  postSellerPhoto(seller: Seller) {
-    if (!this.photoFile) {
-      this.exit(true);
-      return;
-    }
-    this.service.updatePhoto(seller.id, this.photoFile).subscribe();
-  }
-
   exit(withSuccess = false) {
     if (withSuccess) {
       this.showSuccessMessage();
@@ -143,9 +142,13 @@ export class SellersFormComponent implements OnInit {
     this.location.back();
   }
 
+  get successMessage() {
+    return `¡Vendedor/a ${this.sellerForm.getRawValue().nombre} ${this.id ? 'editado' : 'creado'}/a con éxito!`;
+  }
+
   showSuccessMessage() {
     this.messages.push({
-      message: `¡Vendedor/a ${this.sellerForm.getRawValue().nombre} ${this.id ? 'editado' : 'creado'}/a con éxito!`,
+      message: this.successMessage,
       color: Color.Success,
     });
   }

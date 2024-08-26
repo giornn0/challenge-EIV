@@ -7,6 +7,8 @@
   </section>
   <hr>
   <div class="w-full flex justify-center">
+    @let sellers = sellersList | async;
+    @if(sellers?.length){
     <table class="table table-hover">
       <thead>
         <tr>
@@ -25,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (seller of sellersList | async; track seller) {
+        @for (seller of sellers; track seller) {
         <tr>
           @for (access of columnAccesors; track access) {
           <td>
@@ -52,6 +54,10 @@
         }
       </tbody>
     </table>
+    }
+    @else if(sellers?.length === 0){
+    <p>No se han encontrado vendedores</p>
+    }
 
   </div>
 </app-container>

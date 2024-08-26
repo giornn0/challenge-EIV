@@ -26,7 +26,7 @@ export class SellersApiService extends ApiService<Seller, SellerForm> {
   }
   getPhoto(id: number): Observable<File | null> {
     return this.http
-      .get<File>(this.urlWith(id, 'foto'), {
+      .get<Blob>(this.urlWith(id, 'foto'), {
         headers: {
           [ValidHttpHeader.Accept]: 'application/octet-stream',
         },

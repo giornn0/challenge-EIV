@@ -12,7 +12,7 @@ export function spinnerLoaderInterceptor(
   spinnerService.spin();
   // Clone the request to add the authentication header.
   return next(req).pipe(
-    delay(150),
+    delay(300),
     finalize(() => spinnerService.unspin()),
   );
 }

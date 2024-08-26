@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Color } from '@shared';
+import { Color, uuidv4 } from '@shared';
 import { BehaviorSubject } from 'rxjs';
 
 export type AppMessage = {
@@ -10,11 +10,18 @@ export type AppMessage = {
   timeout?: number;
 };
 
+export type IdAppMessage = { id: string } & AppMessage;
+
+export const createIdAppMessage = (appMessage: AppMessage) => ({
+  ...appMessage,
+  id: uuidv4(),
+});
+
 @Injectable({
   providedIn: 'platform',
 })
 export class MessagesService {
-  #messages = new BehaviorSubject<AppMessage[]>([]);
+  #messages = new BehaviorSubject<IdAppMessage[]>([]);
 
   get messages() {
     return this.#messages.asObservable();
@@ -22,6 +29,11 @@ export class MessagesService {
   constructor() {}
 
   push(message: AppMessage) {
-    this.#messages.next([message, ...this.#messages.value]);
+    this.#messages.next([createIdAppMessage(message), ...this.#messages.value]);
+  }
+  closeMessage(message: IdAppMessage) {
+    this.#messages.next(
+      this.#messages.value.filter((msg) => msg.id !== message.id),
+    );
   }
 }

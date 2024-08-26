@@ -1,7 +1,7 @@
 import { AsyncPipe, NgClass } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Color } from 'app/shared/models';
-import { MessagesService } from 'app/shared/services';
+import { IdAppMessage, MessagesService } from 'app/shared/services';
 
 @Component({
   selector: 'app-message',
@@ -15,4 +15,8 @@ export class MessageComponent {
   $messages = this.messagesService.messages;
 
   color = Color;
+
+  closeMsg(message: IdAppMessage) {
+    this.messagesService.closeMessage(message);
+  }
 }

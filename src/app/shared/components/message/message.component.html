@@ -19,6 +19,8 @@
       <img src="icons/triangle-alert.svg" alt="warning icon" class="svg-text mr-2" />
       } }
       {{ message.message }}
+      <img (click)="closeMsg(message)" src="icons/circle-x.svg" alt="close message icon"
+        class="svg-danger ml-2 pointer" />
     </p>
   </div>
   }
