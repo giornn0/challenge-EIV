@@ -1,1 +1,37 @@
-<p>locations-list works!</p>
+
+<app-container>
+  <section class="w-fit flex items-center justify-between">
+    <h2>Lista de localidades</h2>
+  </section>
+  <hr>
+  <div class="w-full flex justify-center">
+    @let locations = locationsList | async;
+    @if(locations?.length){
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          @for (head of headers; track head) {
+          <td>
+            {{ head }}
+          </td>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (location of locations; track location) {
+        <tr>
+          @for (access of columnAccesors; track access) {
+          <td>
+            {{ location[access] }}
+          </td>
+          }
+        }
+      </tbody>
+    </table>
+    }
+    @else if(locations?.length === 0){
+    <p>No se han encontrado localidades</p>
+    }
+  </div>
+</app-container>
+
