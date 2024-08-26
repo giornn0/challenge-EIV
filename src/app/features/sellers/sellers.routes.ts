@@ -3,6 +3,6 @@ import { SellersFormComponent, SellersListComponent } from './pages';
 
 export default [
   { path: '', component: SellersListComponent },
-  { path: 'new', component: SellersFormComponent },
-  { path: 'edit/:id', component: SellersFormComponent },
+  { path: 'nuevo', component: SellersFormComponent },
+  { path: 'editar/:id', component: SellersFormComponent },
 ] satisfies Routes;

@@ -1,60 +1,75 @@
 <app-container>
+  <section class="w-fit flex items-center justify-between">
+    <h2> {{id? 'Editando vendedor/a' + sellerForm.value.nombre:'Nuevo vendedor'}}</h2>
+    <a class="icon-btn btn-secondary" (click)="exit()">
+      <img src="icons/circle-chevron-left.svg" class="svg-text" />
+    </a>
+  </section>
+  <hr>
   <form [formGroup]="sellerForm" (ngSubmit)="submit()">
     <fieldset>
       <legend>Datos personales</legend>
-      <div>
-        <app-img-picker
-          [control]="photoControl"
-          [imgSrc]="'photo-de-ediction'"
-          [defaultImg]="'icons/circle-user-round.svg'"
-        ></app-img-picker>
+      <div class="flex items-center justify-center h-32">
+        <app-img-picker [control]="photoControl" [imgSrc]="alreadyChargedPhotoSrc"
+          [defaultImg]="'icons/circle-user-round.svg'" (change)="photoFile = $event"></app-img-picker>
       </div>
-      <div>
-        <label>Nombre</label>
-        <input type="text" formControlName="nombre" />
+      <div class="form-group">
+        <label class="form-label">Nombre</label>
+        <input class="form-control" type="text" formControlName="nombre" />
       </div>
-      <div>
-        <label>Fecha de nacimiento</label>
-        <input type="date" formControlName="fechaNacimiento" />
+      <div class="form-group">
+        <label class="form-label">Fecha de nacimiento</label>
+        <input class="form-control" type="date" lang="es-ES" formControlName="fechaNacimiento" />
       </div>
     </fieldset>
     <fieldset>
       <legend>Información de usuario</legend>
-      <div>
-        <label>Usuario login</label>
-        <input type="text" formControlName="usuarioLogin" />
+      <div class="form-group">
+        <label class="form-label">Usuario login</label>
+        <input class="form-control" type="text" formControlName="usuarioLogin" />
       </div>
-      <div>
-        <label>¿Habilitado?</label>
-        <input type="checkbox" formControlName="habilitado" />
+      <div class="form-check">
+        <input class="form-check-input" id="habilitado" type="checkbox" formControlName="habilitado" />
+        <label class="form-check-label" for="habilitado">¿Habilitado?</label>
       </div>
     </fieldset>
     <fieldset>
       <legend>Dirección</legend>
-      <div>
-        <label>Localidad</label>
-        <select formControlName="localidadId">
+      <div class="form-group">
+        <label class="form-label">Localidad</label>
+        <select class="form-control" formControlName="localidadId">
           @for (localidad of $localidades | async; track localidad) {
-            <option [value]="localidad.id">
-              {{ localidad.localidad }} - {{ localidad.codigoPostal }}
-            </option>
+          <option [value]="localidad.id">
+            {{ localidad.localidad }} - {{ localidad.codigoPostal }}
+          </option>
           }
         </select>
       </div>
     </fieldset>
     <fieldset>
       <legend>Opcionales</legend>
-      <div>
-        <label>Observaciones</label>
-        <textarea formControlName="observaciones"></textarea>
+      <div class="form-group">
+        <label class="form-label">Observaciones</label>
+        <textarea class="form-control" formControlName="observaciones"></textarea>
       </div>
     </fieldset>
 
-    <div class="w-full flex items-center justify-center">
-      <button class="btn btn-danger" type="button" (click)="back()">
+    <div class="w-full flex items-center justify-center mt-4">
+      <button class="btn with-icon btn-danger mr-2" type="button" (click)="exit()">
+        <img class="svg-text mr-2" src="icons/circle-x.svg" />
         Cancelar
       </button>
-      <button class="btn btn-primary">Crear</button>
+      @if(id){
+      <button class="btn with-icon btn-warning">
+        <img class="svg-text mr-2" src="icons/pencil.svg" />
+        Editar</button>
+      }
+      @else{
+      <button class="btn with-icon btn-primary">
+        <img class="svg-text mr-2" src="icons/save.svg" />
+        Guardar</button>
+      }
     </div>
   </form>
+
 </app-container>

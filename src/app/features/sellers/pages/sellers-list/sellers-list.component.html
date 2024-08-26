@@ -1,30 +1,57 @@
 <app-container>
-  <table>
-    <thead>
-      <tr>
-        @for (head of headers; track head) {
+  <section class="w-fit flex items-center justify-between">
+    <h2>Lista de vendedores</h2>
+    <a class="icon-btn btn-primary" [routerLink]="'nuevo'">
+      <img src="icons/user-round-plus.svg" class="svg-text" />
+    </a>
+  </section>
+  <hr>
+  <div class="w-full flex justify-center">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          @for (head of headers; track head) {
           <td>
             {{ head }}
           </td>
-        }
-          <td>
-          Acciones
-          </td>
-      </tr>
-    </thead>
-    <tbody>
-      @for (seller of sellersList | async; track seller) {
-        <tr>
-          @for (access of columnAccesors; track access) {
-            <td>
-              {{ seller[access] }}
-            </td>
           }
           <td>
+            Localidad
+          </td>
 
+          <td>
+            Acciones
           </td>
         </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        @for (seller of sellersList | async; track seller) {
+        <tr>
+          @for (access of columnAccesors; track access) {
+          <td>
+            @if(access === 'habilitado'){
+            <app-toggle-button [status]="!!seller[access]"
+              (changeStatus)="changeStatus(seller,$event)"></app-toggle-button>
+            }@else{
+            {{ seller[access] }}
+            }
+          </td>
+          }
+          <td>
+            {{seller.localidad.codigoPostal}} {{seller.localidad.localidad}}
+          </td>
+          <td>
+            <a class="icon-btn btn-warning" [routerLink]="'editar/' + seller.id" (click)="setEdit(seller)">
+              <img src="icons/pencil.svg" alt="edit icon" class="svg-text" />
+            </a>
+            <button class="icon-btn btn-danger" (click)="deleteSeller(seller)">
+              <img src="icons/trash.svg" alt="delete icon" class="svg-text" />
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+
+  </div>
 </app-container>

@@ -14,15 +14,27 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LocationsApiService } from '@app-features/locations';
-import { SellerForm } from '@app-features/sellers/seller.model';
+import {
+  getFormFromSeller,
+  Seller,
+  SellerForm,
+} from '@app-features/sellers/seller.model';
 import { SellersApiService } from '@app-features/sellers/services';
 import {
+  addYears,
+  Color,
   ContainerComponent,
+  DateRangeValidator,
   ImgPickerComponent,
-  log,
+  MessagesService,
   TypedForm,
 } from '@shared';
+import { PartialObserver } from 'rxjs';
+
+const MINIMUM_SELLER_AGE = -18;
+const MAXIMUM_SELLER_AGE = -65;
 
 @Component({
   selector: 'app-sellers-form',
@@ -39,33 +51,102 @@ import {
 export class SellersFormComponent implements OnInit {
   @Input() id?: number;
   location = inject(Location);
+  router = inject(Router);
+  messages = inject(MessagesService);
   $localidades = inject(LocationsApiService).getAll();
-  constructor(@Inject(DestroyRef) private destroyRef: DestroyRef) {}
 
-  ngOnInit(): void {
-    this.photoControl.valueChanges
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(log);
-  }
   service = inject(SellersApiService);
   photoControl = new FormControl();
+  photoFile?: File;
+  alreadyChargedPhotoSrc?: string;
+
+  today = new Date();
 
   sellerForm = new FormGroup<TypedForm<SellerForm>>({
+    id: new FormControl(null),
     nombre: new FormControl(null, [Validators.required]),
     usuarioLogin: new FormControl(null, [Validators.required]),
-    fechaNacimiento: new FormControl(null, [Validators.required]),
-    habilitado: new FormControl(null, [Validators.required]),
+    fechaNacimiento: new FormControl(null, [
+      Validators.required,
+      DateRangeValidator(
+        addYears(this.today, MAXIMUM_SELLER_AGE),
+        addYears(this.today, MINIMUM_SELLER_AGE),
+      ),
+    ]),
+    habilitado: new FormControl(false, [Validators.required]),
     observaciones: new FormControl(null, []),
     localidadId: new FormControl(null, [Validators.required]),
   });
+  constructor(@Inject(DestroyRef) private destroyRef: DestroyRef) {}
 
-  back() {
-    this.location.back();
+  ngOnInit(): void {
+    this.setupEdition();
   }
+  setupEdition() {
+    const sellerInfo = this.service.sellerForEdit;
+    if (!this.id || !sellerInfo) {
+      return;
+    }
+    this.sellerForm.setValue(getFormFromSeller(sellerInfo));
+    this.service
+      .getPhoto(this.id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(this.handlerGetPhoto);
+  }
+
   submit() {
     if (!this.sellerForm.valid) {
       return;
     }
-    this.service.create(this.sellerForm.getRawValue()).subscribe(console.log);
+    if (!this.id) {
+      this.service
+        .create(this.sellerForm.getRawValue())
+        .subscribe(this.handlerSubmit);
+    } else {
+      this.service
+        .update(this.sellerForm.getRawValue(), this.id)
+        .subscribe(this.handlerSubmit);
+    }
+  }
+
+  handlerSubmit: PartialObserver<Seller> = {
+    next: (seller) => this.postSellerPhoto(seller),
+  };
+  handlerSubmitPhoto: PartialObserver<boolean> = {
+    next: (successful) => {
+      if (successful) {
+        this.exit(true);
+      }
+    },
+  };
+  handlerGetPhoto: PartialObserver<File | null> = {
+    next: (photoFile) => {
+      if (photoFile) {
+        this.alreadyChargedPhotoSrc = URL.createObjectURL(photoFile);
+      }
+    },
+  };
+
+  postSellerPhoto(seller: Seller) {
+    if (!this.photoFile) {
+      this.exit(true);
+      return;
+    }
+    this.service.updatePhoto(seller.id, this.photoFile).subscribe();
+  }
+
+  exit(withSuccess = false) {
+    if (withSuccess) {
+      this.showSuccessMessage();
+    }
+    this.service.clearEdition();
+    this.location.back();
+  }
+
+  showSuccessMessage() {
+    this.messages.push({
+      message: `¡Vendedor/a ${this.sellerForm.getRawValue().nombre} ${this.id ? 'editado' : 'creado'}/a con éxito!`,
+      color: Color.Success,
+    });
   }
 }
