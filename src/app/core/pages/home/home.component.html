@@ -1,13 +1,9 @@
-  <nav class="w-full h-full flex justify-center items-center">
-    @for (navigator of navigators; track navigator) {
-      <a
-        [routerLink]="navigator.route"
-        routerLinkActive="active"
-        ariaCurrentWhenActive="page"
-        class="btn btn-primary flex flex-row items-center mx-4 pt-6"
-      >
-        <img [src]="navigator.iconPath" [alt]="navigator.text" class="svg-text"/>
-        <h2>{{ navigator.text | uppercase }}</h2>
-      </a>
-    }
-  </nav>
+<nav class="w-full h-full flex justify-center items-center">
+  @for (navigator of navigators; track navigator) {
+  <a [routerLink]="navigator.route" routerLinkActive="active" ariaCurrentWhenActive="page"
+    class="btn btn-primary flex flex-col items-center mx-4 pt-6">
+    <img [src]="navigator.iconPath" [alt]="navigator.text" class="svg-text mt-4" />
+    <h2>{{ navigator.text | uppercase }}</h2>
+  </a>
+  }
+</nav>
